@@ -1,7 +1,7 @@
 <?php
 
    $databaseHost = 'localhost'; //Endereço do banco de dados
-   $databaseName = 'crud_prodater'; //Nome do banco de dados
+   $databaseName = 'crud_test'; //Nome do banco de dados
    $databaseUser = 'root';// Usuário do Banco de dados
    $databasePass = ''; //Senha do banco de dados
 

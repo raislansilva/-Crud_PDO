@@ -1,50 +1,9 @@
 <?php
-require_once("conexao.php"); // Chama o arquivo de conexão com o banco de dados
 
-if(isset($_POST['salvar'])){ // Verifica se a Variável está configurada
-	extract($_POST);
-
-	$erros = array();
-
-	if(empty($nome) || empty($cpf)|| empty($endereco)){
-		if(empty($nome)){
-			$erros['nome'] = "Campo Obrigatório";
-		}
-
-		if(empty($cpf)){
-			$erros['cpf'] = "Campo Obrigatório";
-		}
-
-		if(empty($endereco)){
-			$erros['endereco'] = "Campo Obrigatório";
-		}
-
-		if(strlen($cpf)!=14){
-			$erros['cpf2'] = "CPF Inválido";
-		}
-	}elseif(strlen($cpf)!=14){
-		$erros['cpf2'] = "CPF Inválido";
-
-	}else{
-		$sql = "INSERT INTO cliente(nomeCliente,cpfCliente,enderecoCliente) VALUES (:nome,:cpf,:endereco)"; // Armazena a consulta sql na variàvel $sql
-	    $query =$con->prepare($sql);//prepara a variável de consulta
-
-        //Liga um parametro a uma variável especifica
-	    $query->bindparam(':nome',$nome); 
-	    $query->bindparam(':cpf', $cpf);
-	    $query->bindparam(':endereco',$endereco);
-        //Executa a instrução preparada
-	    $query->execute();
-
-	    header("Location: create.php"); //Redireciona para a pagina create
-	    
-	}
-
-
-}
-
+session_start();
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -60,30 +19,20 @@ if(isset($_POST['salvar'])){ // Verifica se a Variável está configurada
 	<script src="../bootstrap.bundle.min.js/ bootstrap.bundle.js"></script>
 	<link href="css/estilo.css" rel="stylesheet">
 	<script type="text/javascript">
-		function f1(){
-			alert("Cadastrado com Sucesso");
-		}
-
-		$(function () {
-			$('[data-toggle="tooltip"]').tooltip()
-		})
-
-		$(document).ready(function(){
-			$('#cpf').mask('###.###.###-##');
-		});
+		
 	</script>
 </head>
 <body>
 	<h4>Dados Pessoais</h4>
 	<div class="principal">
-		<form action="create.php" method="POST" name="form1"><!-- Inicio do Formulário -->
+		<form action="store.php" method="POST" name="form1"><!-- Inicio do Formulário -->
 			<div class="form-group">
 				<label>Nome Compeleto</label>
 				<input class="form-control" type="text" name="nome" id="nome" placeholder="Nome Completo" >
 				<?php
-				if(isset($erros['nome'])){
-					echo "<div class='error'>".$erros['nome']."</div>";
-					unset($erros['nome']);
+				if(isset($_SESSION['nome'])){
+					echo "<div class='error'>".$_SESSION['nome']."</div>";
+					unset($_SESSION['nome']);
 				}
 
 				?>
@@ -95,12 +44,12 @@ if(isset($_POST['salvar'])){ // Verifica se a Variável está configurada
 				<input class="form-control" type="text " name="cpf" id="cpf" placeholder="" >
 				<?php
 
-				if(isset($erros['cpf'])){
-					echo "<div class='error'>".$erros['cpf']."</div>";
-					unset($erros['cpf']);
-				}elseif(isset($erros['cpf2'])){
-					echo "<div class='error'>".$erros['cpf2']."</div>";
-					unset($erros['cpf2']);
+				if(isset($_SESSION['cpf'])){
+					echo "<div class='error'>".$_SESSION['cpf']."</div>";
+					unset($_SESSION['cpf']);
+				}elseif(isset($_SESSION['cpf2'])){
+					echo "<div class='error'>".$_SESSION['cpf2']."</div>";
+					unset($_SESSION['cpf2']);
 				}
 
 
@@ -113,9 +62,9 @@ if(isset($_POST['salvar'])){ // Verifica se a Variável está configurada
 				<label>Endereço</label>
 				<input class="form-control" type="text" id="endereco" name="endereco">
 				<?php
-				if(isset($erros['endereco'])){
-					echo "<div class='error'>".$erros['endereco']."</div>";
-					unset($erros['endereco']);
+				if(isset($_SESSION['endereco'])){
+					echo "<div class='error'>".$_SESSION['endereco']."</div>";
+					unset($_SESSION['endereco']);
 				}
 
 				?>

@@ -28,12 +28,12 @@ $result = $con->query("SELECT * FROM cliente"); //Armazena a consulta em uma var
 		<a href="create.php"><button id="button" class="btn btn-primary">Cadastrar</button></a>
 
 
-		<table class="table table-bordered table-responsive table-hover"><!--  Tabela HTML  -->
+		<table class="table table-bordered table-responsive table-hover "><!--  Tabela HTML  -->
 			<tr id="cabecalho">
-				<td ><center>Nome</center></td>
-				<td style="width: 14%;"><center>CPF</center></td>
-				<td style="width: 28%;"><center>Endereço</center></td>
-				<td style="width: 18%;"><center>Ações</center></td>
+				<td >Nome</td>
+				<td style="width: 14%;">CPF</td>
+				<td style="width: 28%;">Endereço</td>
+				<td style="width: 18%;">Ações</td>
 
 			</tr>
 
@@ -43,16 +43,13 @@ $result = $con->query("SELECT * FROM cliente"); //Armazena a consulta em uma var
 				echo "<td>".$row['nomeCliente']."</td>";
 				echo "<td>".$row['cpfCliente']."</td>";
 				echo "<td>".$row['enderecoCliente']."</td>";
-				echo "<td><a href=\"editar.php?id=$row[id]\"><button class=\"btn btn-warning\">Editar</button></a> <a href=\"excluir.php?id=$row[id]\"><button class=\"btn btn-danger\"  onclick=\"f3()\">Excluir</button></a> </td>";
+				echo "<td><a href=\"editar.php?id=$row[id]\"><button class=\"btn btn-warning\">Editar</button></a>
+				      <a href=\"excluir.php?id=$row[id]\"><button class=\"btn btn-danger\">Excluir</button></a></td>";
 				echo "</tr>";
 			}?>
 
 
 		</table>
-
-
-
-		
 
 	</div>
 
